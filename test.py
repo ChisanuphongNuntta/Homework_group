@@ -1,4 +1,5 @@
-import random
+import pgzrun
+
 
 mylist = ["apple", "banana", "cherry"]
 
