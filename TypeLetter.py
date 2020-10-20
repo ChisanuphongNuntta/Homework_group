@@ -1,11 +1,12 @@
 import pgzrun
-from random import randint, choice
+from random import randint, choice, random
 import string
 
 WIDTH = 800
 HEIGHT = 500
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+NUMSA = ["birde","cat","rad"]
 # LETTER = {"letter": "", "x": 0, "y": 0}
 ON_SCREEN_LETTERS = []
 VELOCITY = 1
@@ -27,7 +28,7 @@ def update():
         if LETTER["y"] == HEIGHT - 5:
             SCORE["WRONG"] += 1
             delete_letter(i)
-    while len(ON_SCREEN_LETTERS) < 4:
+    while len(ON_SCREEN_LETTERS) < 5:
         add_letter()
 
 
@@ -43,8 +44,8 @@ def on_key_down(key, mod, unicode):
 
 
 def add_letter():
-    letter = choice(string.ascii_letters).lower()
-    x = randint(10, WIDTH - 20)
+    letter = choice(NUMSA).lower()
+    x = randint(10, WIDTH - 5)
     y = 1
     ON_SCREEN_LETTERS.append({"letter": letter, "x": x, "y": y})
 
