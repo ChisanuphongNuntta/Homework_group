@@ -24,7 +24,7 @@ mm = ''
 
 def draw():
     toyo.draw()
-    
+    if 
     screen.clear()
     screen.fill(BLACK)
     for LETTER in ON_SCREEN_LETTERS:
@@ -32,6 +32,9 @@ def draw():
     screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
     screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
     screen.draw.text("TEXT: " + str(keyin), (200, HEIGHT - 50), fontsize=30, color=WHITE)
+
+def on_mouse_down(pos):
+    toyo.c
 
 def update():
     for i, LETTER in enumerate(ON_SCREEN_LETTERS):
