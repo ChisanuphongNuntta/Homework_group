@@ -13,20 +13,35 @@ VELOCITY = 3
 SCORE = {"RIGHT": 0, "WRONG": 0}
 inter = 0
 stop = 0
-toyo = Actor('play',(400,250))
-st = Actor('stop')
-
+pu2 = 0
+toyo = Actor('play')
+pu = Actor('pause')
+back = Actor('backg')
+endgame = Actor('end')
+replaygame = Actor('replay')
+resumegame = Actor('resume')
 
 def draw():
     toyo.draw()
-    if inter == 1:
+    if inter == 1 and stop != 1:
         screen.clear()
         screen.blit('blackground',(0,0))
-        st.draw()
+        pu.draw()
+        pu.pos = 100,100
         for LETTER in ON_SCREEN_LETTERS:
             screen.draw.text(LETTER["letter"], (LETTER["x"], LETTER["y"]), fontsize=50, color=WHITE)
         screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
         screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
+    if pu2 == 1:
+        #screen.clear()
+        back.draw()
+        back.pos = 400,250
+        resumegame.draw()
+        resumegame.pos = 400,100
+        replaygame.draw()
+        replaygame.pos = 400,300
+        endgame.draw()
+        endgame.pos = 400,500
     if stop == 1:
         screen.clear()
         
@@ -34,26 +49,34 @@ def draw():
 def on_mouse_down(pos):
     global inter
     global stop
-    if toyo.collidepoint(pos):
-        print("yes")
-        inter += 1
-    if st.collidepoint(pos):
-        print("stop")
-        stop += 1
-        print(stop)
+    global pu2
+    if pu.collidepoint(pos):
+        if pu2 >= 0 and pu2 < 1:
+            pu2 += 1
+    if stop != 1 and inter <= 1:
+        if toyo.collidepoint(pos):
+            if inter >= 0 and inter < 1:
+                print("yes")
+                inter += 1
+    if endgame.collidepoint(pos):
+        if stop >= 0 and stop < 1:
+            stop += 1
+            print(stop)
         
 
 def update():
-    if inter == 1:
+    if inter == 1 and pu2 != 1:
         for i, LETTER in enumerate(ON_SCREEN_LETTERS):
             LETTER["y"] += VELOCITY
             if LETTER["y"] == HEIGHT - 5:
                 SCORE["WRONG"] += 1
                 delete_letter(i)
+
+
         while len(ON_SCREEN_LETTERS) < 5:
             add_letter()
-    if stop == 1:
-        screen.clear()
+    if inter == 1 and pu2 != 1:
+    
         for i, LETTER in enumerate(ON_SCREEN_LETTERS):
             LETTER["y"] += VELOCITY
             if LETTER["y"] == HEIGHT - 5:
@@ -71,14 +94,16 @@ def on_key_down(key, mod, unicode):
                 delete_letter(i)
                 return
         else:
-            SCORE["WRONG"] += 1
+            if SCORE <= 10:
+                SCORE["WRONG"] += 1
 
 
 def add_letter():
-    letter = choice(string.ascii_letters).lower()
-    x = randint(10, WIDTH - 5)
-    y = 3
-    ON_SCREEN_LETTERS.append({"letter": letter, "x": x, "y": y})
+    if inter == 1 and pu2 != 1:
+        letter = choice(string.ascii_letters).lower()
+        x = randint(10, WIDTH - 5)
+        y = 3
+        ON_SCREEN_LETTERS.append({"letter": letter, "x": x, "y": y})
 
 
 def delete_letter(i):
