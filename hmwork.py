@@ -1,7 +1,7 @@
 import pgzrun
 from random import randint, choice, random
 import string
-f
+
 WIDTH = 1600
 HEIGHT = 900
 inter = 0
