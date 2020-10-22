@@ -39,6 +39,7 @@ mm = ''
 def draw():
     toyo.draw()
     if inter == 1:
+        screen.clear()
         eazy.draw()
         medium.draw()
         hard.draw()
@@ -92,7 +93,7 @@ def on_mouse_down(pos):
             SCORE["WRONG"] = 0
             ON_SCREEN_LETTERS = []
             pu2 -= 1
-    if 
+    
             
 
 def update():
