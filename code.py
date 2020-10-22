@@ -34,6 +34,12 @@ def draw():
         screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
         screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
         screen.draw.text("TEXT: " + str(keyin), (200, HEIGHT - 50), fontsize=30, color=WHITE)
+    if pu2 == 1:
+        screen.clear()
+        back.draw()
+        back.pos = 800,250
+
+        
 
 def on_mouse_down(pos):
     global inter,stop,pu2
