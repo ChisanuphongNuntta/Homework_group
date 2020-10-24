@@ -14,6 +14,7 @@ inter = 0
 stop = 0
 pu2 = 0
 b = 0
+end = 0
 reply = 0
 toyo = Actor('play')
 toyo.pos = (500,300)
@@ -30,6 +31,9 @@ medium = Actor('medium')
 medium.pos = (500,400)
 hard = Actor('hard')
 hard.pos = (500,500)
+playagain = Actor('playagain')
+playagain.pos = (300,500)
+playagain2 = 0
 eazy2 = 0
 medium2 = 0
 hard2 = 0
@@ -61,10 +65,17 @@ def draw():
         endgame.pos = 500,300
         replaygame.draw()
         replaygame.pos = 500, 500
+    if end == 1:
+        screen.clear()
+        back.draw()
+        playagain.draw()
+        screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 500, 300), fontsize=50, color=WHITE)
+        screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 500, 320), fontsize=50, color=WHITE)
+
         
 
 def on_mouse_down(pos):
-    global inter,stop,pu2,b,eazy2,medium2,hard2,ON_SCREEN_LETTERS
+    global inter,stop,pu2,b,eazy2,medium2,hard2,ON_SCREEN_LETTERS,end,playagain2
     if stop != 1 and inter <= 1:
         if toyo.collidepoint(pos):
             if inter >= 0 and inter < 1:
@@ -84,16 +95,44 @@ def on_mouse_down(pos):
         if pu.collidepoint(pos):
             if pu2 >= 0 and pu2 < 1:
                 pu2 += 1
-    if resumegame.collidepoint(pos):
-        if inter == 1:
-            pu2 -= 1
+    if pu2 == 1:
+        if resumegame.collidepoint(pos):
+            if inter == 1 and end != 1:
+                pu2 -= 1
     if pu2 == 1:
         if replaygame.collidepoint(pos):
-            SCORE["RIGHT"] = 0 
-            SCORE["WRONG"] = 0
-            ON_SCREEN_LETTERS = []
-            pu2 -= 1
-    
+            if inter == 1 and end != 1:
+                SCORE["RIGHT"] = 0 
+                SCORE["WRONG"] = 0
+                ON_SCREEN_LETTERS = []
+                pu2 -= 1
+    if pu2 == 1:
+        if endgame.collidepoint(pos):
+            if end >= 0 and end < 1:
+                end += 1
+    if SCORE["WRONG"] == 10 or end == 1:
+        if playagain.collidepoint(pos):
+            if playagain2 >= 0 and playagain2 < 1:
+                if inter == 1:
+                    inter = 0
+                if end == 1:
+                    end -= 1
+                    inter += 1
+                if pu2 == 1:
+                    pu2 -= 1
+                if eazy2 == 1:
+                    eazy2 = 0
+                if medium2 == 1:
+                    medium2 = 0
+                if hard2 == 1:
+                    hard2 = 0
+                SCORE["RIGHT"] = 0 
+                SCORE["WRONG"] = 0
+                ON_SCREEN_LETTERS = []
+            
+
+            
+        
             
 
 def update():
@@ -162,3 +201,24 @@ def add_letter():
 def delete_letter(i):
     del ON_SCREEN_LETTERS[i]
 pgzrun.go()
+
+"""
+if SCORE['WRONG'] >= 10 or end == 5:
+        if playagain.collidepoint(pos):
+            if end == 5:
+                end -= 5
+            if stop1 == 1:
+                stop1 -= 1
+            SCORE["RIGHT"] = 0
+            SCORE["WRONG"] = 0
+            ON_SCREEN_LETTERS1 = []
+            ON_SCREEN_LETTERS2 = []
+            ON_SCREEN_LETTERS3 = []
+            ON_SCREEN_LETTERS4 = []
+            ON_SCREEN_LETTERS5 = []
+            ON_SCREEN_LETTERS6 = []
+            ON_SCREEN_LETTERS7 = []
+            ON_SCREEN_LETTERS8 = []
+            ON_SCREEN_LETTERS9 = []
+            ON_SCREEN_LETTERS10 = []
+"""

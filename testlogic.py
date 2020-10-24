@@ -3,7 +3,7 @@ from random import randint, choice
 import string
 import os
 import random
-from words import words
+from vocabulary import *
 os.environ["SDL_VIDEO_CENTERED"] = "1"
 WIDTH = 1600
 HEIGHT = 900
@@ -92,19 +92,19 @@ def draw():  # Pygame Zero draw function
                 screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             if SCORE["RIGHT"] > 2:
                 for LETTER in ON_SCREEN_LETTERS6:
-                screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
+                    screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             if SCORE["RIGHT"] > 5:
                 for LETTER in ON_SCREEN_LETTERS7:
-                screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
+                    screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             if SCORE["RIGHT"] > 7:
                 for LETTER in ON_SCREEN_LETTERS8:
-                screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
+                    screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             if SCORE["RIGHT"] > 9:
                 for LETTER in ON_SCREEN_LETTERS9:
-                screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
+                    screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             if SCORE["RIGHT"] > 15:
                 for LETTER in ON_SCREEN_LETTERS10:
-                screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
+                    screen.draw.text( LETTER["letter"] , (LETTER["x"]  , LETTER["y"]), fontsize=40, color=WHITE)
             
             screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
             screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
