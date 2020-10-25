@@ -37,17 +37,19 @@ playagain = Actor('playagain')
 playagain.pos = (540,500)
 playagain2 = 0
 eazy2 = 0
-manu = music.play('manu')
 medium2 = 0
 hard2 = 0
 keyin = ''
 mm = ''
+if inter <= 0:
+    music.play('manu')
 
 def draw():
     global pu2,end
     screen.blit('start2',(0,0))
     play.draw()
-    music.play('manu')
+    #music.set_volume(1)
+    #music.get_volume()
     if inter == 1:
         screen.clear()
         screen.blit('backpu',(0,0))
@@ -78,7 +80,7 @@ def draw():
         playagain.draw()
         screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 570, 200), fontsize=50, color=WHITE)
         screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 550, 300), fontsize=50, color=WHITE)
-    if SCORE["WRONG"] == 1:
+    if SCORE["WRONG"] == 3:
         pu2 = 1
         end = 1
 
@@ -91,24 +93,30 @@ def on_mouse_down(pos):
             if inter >= 0 and inter < 1:
                 print("yes")
                 inter += 1
+                music.play('play')
     if eazy2 != 1 and  medium2 != 1 and hard2 != 1:
         if eazy.collidepoint(pos):
             if inter == 1 and eazy2 < 1:
                 eazy2 += 1
+                music.play('play')
         if medium.collidepoint(pos):
             if inter == 1 and medium2 < 1:
                 medium2 += 1
+                music.play('play')
         if hard.collidepoint(pos):
             if inter == 1 and hard2 < 1:
                 hard2 += 1
+                music.play('play')
     if inter == 1:
         if pu.collidepoint(pos):
             if pu2 >= 0 and pu2 < 1:
                 pu2 += 1
+                music.play('stop')
     if pu2 == 1:
         if resumegame.collidepoint(pos):
             if inter == 1 and end != 1:
                 pu2 -= 1
+                music.play('play')
     if pu2 == 1:
         if replaygame.collidepoint(pos):
             if inter == 1 and end != 1:
@@ -116,11 +124,13 @@ def on_mouse_down(pos):
                 SCORE["WRONG"] = 0
                 ON_SCREEN_LETTERS = []
                 pu2 -= 1
+                music.play('play')
     if pu2 == 1:
         if endgame.collidepoint(pos):
             if end >= 0 and end < 1:
                 end += 1
-    if SCORE["WRONG"] == 1 or end == 1:
+                music.play('end')
+    if SCORE["WRONG"] == 3 or end == 1:
         if playagain.collidepoint(pos):
             if playagain2 >= 0 and playagain2 < 1:
                 if inter == 1:
@@ -139,6 +149,7 @@ def on_mouse_down(pos):
                 SCORE["CORRECT"] = 0 
                 SCORE["WRONG"] = 0
                 ON_SCREEN_LETTERS = []
+                music.play('manu')
     
 
             
