@@ -9,41 +9,48 @@ WHITE = (255, 255, 255)
 # LETTER = {"letter": "", "x": 0, "y": 0}
 ON_SCREEN_LETTERS = []
 VELOCITY = 1
-SCORE = {"RIGHT": 0, "WRONG": 0}
+SCORE = {"CORRECT": 0, "WRONG": 0}
 inter = 0
 stop = 0
 pu2 = 0
 b = 0
 end = 0
 reply = 0
-toyo = Actor('play')
-toyo.pos = (500,300)
+play = Actor('play')
+play.pos = (500,300)
 pu = Actor('pause')
-pu.pos = (50,50)
-back = Actor('backg')
+pu.pos = (100,90)
+backpuu = Actor('backpu2')
+start2 = Actor('start2')
+endback = Actor('endback')
 endgame = Actor('end')
 replaygame = Actor('replay')
 resumegame = Actor('resume')
-backbub = Actor('backbub')
+backpu = Actor('backpu')
 eazy = Actor('eazy')
-eazy.pos = (500,100)
+eazy.pos = (540,100)
 medium = Actor('medium')
-medium.pos = (500,400)
+medium.pos = (540,300)
 hard = Actor('hard')
-hard.pos = (500,500)
+hard.pos = (540,500)
 playagain = Actor('playagain')
-playagain.pos = (300,500)
+playagain.pos = (540,500)
 playagain2 = 0
 eazy2 = 0
+manu = music.play('manu')
 medium2 = 0
 hard2 = 0
 keyin = ''
 mm = ''
 
 def draw():
-    toyo.draw()
+    global pu2,end
+    screen.blit('start2',(0,0))
+    play.draw()
+    music.play('manu')
     if inter == 1:
         screen.clear()
+        screen.blit('backpu',(0,0))
         eazy.draw()
         medium.draw()
         hard.draw()
@@ -53,31 +60,34 @@ def draw():
             pu.draw()
             for LETTER in ON_SCREEN_LETTERS:
                 screen.draw.text(LETTER["letter"], (LETTER["x"], LETTER["y"]), fontsize=50, color=WHITE)
-            screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
+            screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
             screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
             screen.draw.text("TEXT: " + str(keyin), (200, HEIGHT - 50), fontsize=30, color=WHITE)
     if pu2 == 1:
-        back.draw()
-        back.pos = 500,300
+        screen.clear()
+        screen.blit('backpu2',(0,0))
         resumegame.draw()
-        resumegame.pos = 500,100
+        resumegame.pos = 540,100
         endgame.draw()
-        endgame.pos = 500,300
+        endgame.pos = 540,300
         replaygame.draw()
-        replaygame.pos = 500, 500
+        replaygame.pos = 540, 500
     if end == 1:
         screen.clear()
-        back.draw()
+        screen.blit('endback',(0,0))
         playagain.draw()
-        screen.draw.text("RIGHT: " + str(SCORE["RIGHT"]), (WIDTH - 500, 300), fontsize=50, color=WHITE)
-        screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 500, 320), fontsize=50, color=WHITE)
+        screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 570, 200), fontsize=50, color=WHITE)
+        screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 550, 300), fontsize=50, color=WHITE)
+    if SCORE["WRONG"] == 1:
+        pu2 = 1
+        end = 1
 
         
 
 def on_mouse_down(pos):
     global inter,stop,pu2,b,eazy2,medium2,hard2,ON_SCREEN_LETTERS,end,playagain2
     if stop != 1 and inter <= 1:
-        if toyo.collidepoint(pos):
+        if play.collidepoint(pos):
             if inter >= 0 and inter < 1:
                 print("yes")
                 inter += 1
@@ -102,7 +112,7 @@ def on_mouse_down(pos):
     if pu2 == 1:
         if replaygame.collidepoint(pos):
             if inter == 1 and end != 1:
-                SCORE["RIGHT"] = 0 
+                SCORE["CORRECT"] = 0 
                 SCORE["WRONG"] = 0
                 ON_SCREEN_LETTERS = []
                 pu2 -= 1
@@ -110,7 +120,7 @@ def on_mouse_down(pos):
         if endgame.collidepoint(pos):
             if end >= 0 and end < 1:
                 end += 1
-    if SCORE["WRONG"] == 10 or end == 1:
+    if SCORE["WRONG"] == 1 or end == 1:
         if playagain.collidepoint(pos):
             if playagain2 >= 0 and playagain2 < 1:
                 if inter == 1:
@@ -126,10 +136,10 @@ def on_mouse_down(pos):
                     medium2 = 0
                 if hard2 == 1:
                     hard2 = 0
-                SCORE["RIGHT"] = 0 
+                SCORE["CORRECT"] = 0 
                 SCORE["WRONG"] = 0
                 ON_SCREEN_LETTERS = []
-            
+    
 
             
         
@@ -162,6 +172,7 @@ def update():
                 delete_letter(i)
         while len(ON_SCREEN_LETTERS) < 1:
             add_letter()
+    
 
 def on_key_down(key, mod, unicode):
     global keyin
@@ -173,7 +184,7 @@ def on_key_down(key, mod, unicode):
     
     for i,LETTER in enumerate(ON_SCREEN_LETTERS):
         if LETTER["letter"] == keyin:
-            SCORE["RIGHT"] += 1
+            SCORE["CORRECT"] += 1
             delete_letter(i)
             keyin = ''
             return
@@ -209,7 +220,7 @@ if SCORE['WRONG'] >= 10 or end == 5:
                 end -= 5
             if stop1 == 1:
                 stop1 -= 1
-            SCORE["RIGHT"] = 0
+            SCORE["CORRECT"] = 0
             SCORE["WRONG"] = 0
             ON_SCREEN_LETTERS1 = []
             ON_SCREEN_LETTERS2 = []
@@ -221,4 +232,12 @@ if SCORE['WRONG'] >= 10 or end == 5:
             ON_SCREEN_LETTERS8 = []
             ON_SCREEN_LETTERS9 = []
             ON_SCREEN_LETTERS10 = []
+    def update():
+    for i, LETTER in enumerate(a):
+        LETTER["y"] += VELOCITY
+        if LETTER["y"] == HEIGHT - 5:
+            SCORE["WRONG"] += 1
+            delete_letter(i)
+    while len(a) < 1:
+        add_letter()
 """
