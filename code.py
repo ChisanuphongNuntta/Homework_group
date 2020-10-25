@@ -40,7 +40,7 @@ eazy2 = 0
 medium2 = 0
 hard2 = 0
 keyin = ''
-mm = ''
+
 if inter <= 0:
     music.play('manu')
 
@@ -48,8 +48,6 @@ def draw():
     global pu2,end
     screen.blit('start2',(0,0))
     play.draw()
-    #music.set_volume(1)
-    #music.get_volume()
     if inter == 1:
         screen.clear()
         screen.blit('backpu',(0,0))
@@ -62,7 +60,7 @@ def draw():
             pu.draw()
             for LETTER in ON_SCREEN_LETTERS:
                 screen.draw.text(LETTER["letter"], (LETTER["x"], LETTER["y"]), fontsize=50, color=WHITE)
-            screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 130, 10), fontsize=30, color=WHITE)
+            screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 140, 10), fontsize=30, color=WHITE)
             screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 130, 40), fontsize=30, color=WHITE)
             screen.draw.text("TEXT: " + str(keyin), (200, HEIGHT - 50), fontsize=30, color=WHITE)
     if pu2 == 1:
@@ -131,6 +129,7 @@ def on_mouse_down(pos):
                 end += 1
                 music.play('end')
     if SCORE["WRONG"] == 3 or end == 1:
+        music.play('end')
         if playagain.collidepoint(pos):
             if playagain2 >= 0 and playagain2 < 1:
                 if inter == 1:
@@ -163,6 +162,8 @@ def update():
             if LETTER["y"] == HEIGHT - 5:
                 SCORE["WRONG"] += 1
                 delete_letter(i)
+                if SCORE["WRONG"] == 3:
+                    music.play('end')
         while len(ON_SCREEN_LETTERS) < 1:
             add_letter()
         
@@ -172,6 +173,8 @@ def update():
             if LETTER["y"] == HEIGHT - 5:
                 SCORE["WRONG"] += 1
                 delete_letter(i)
+                if SCORE["WRONG"] == 3:
+                    music.play('end')
         while len(ON_SCREEN_LETTERS) < 1:
             add_letter()
 
@@ -181,6 +184,8 @@ def update():
             if LETTER["y"] == HEIGHT - 5:
                 SCORE["WRONG"] += 1
                 delete_letter(i)
+                if SCORE["WRONG"] == 3:
+                    music.play('end')
         while len(ON_SCREEN_LETTERS) < 1:
             add_letter()
     
