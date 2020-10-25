@@ -129,7 +129,6 @@ def on_mouse_down(pos):
                 end += 1
                 music.play('end')
     if SCORE["WRONG"] == 3 or end == 1:
-        music.play('end')
         if playagain.collidepoint(pos):
             if playagain2 >= 0 and playagain2 < 1:
                 if inter == 1:
@@ -228,32 +227,3 @@ def add_letter():
 def delete_letter(i):
     del ON_SCREEN_LETTERS[i]
 pgzrun.go()
-
-"""
-if SCORE['WRONG'] >= 10 or end == 5:
-        if playagain.collidepoint(pos):
-            if end == 5:
-                end -= 5
-            if stop1 == 1:
-                stop1 -= 1
-            SCORE["CORRECT"] = 0
-            SCORE["WRONG"] = 0
-            ON_SCREEN_LETTERS1 = []
-            ON_SCREEN_LETTERS2 = []
-            ON_SCREEN_LETTERS3 = []
-            ON_SCREEN_LETTERS4 = []
-            ON_SCREEN_LETTERS5 = []
-            ON_SCREEN_LETTERS6 = []
-            ON_SCREEN_LETTERS7 = []
-            ON_SCREEN_LETTERS8 = []
-            ON_SCREEN_LETTERS9 = []
-            ON_SCREEN_LETTERS10 = []
-    def update():
-    for i, LETTER in enumerate(a):
-        LETTER["y"] += VELOCITY
-        if LETTER["y"] == HEIGHT - 5:
-            SCORE["WRONG"] += 1
-            delete_letter(i)
-    while len(a) < 1:
-        add_letter()
-"""
