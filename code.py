@@ -89,7 +89,7 @@ def on_mouse_down(pos):
     if stop != 1 and inter <= 1:
         if play.collidepoint(pos):
             if inter >= 0 and inter < 1:
-                print("yes")
+                print("Enjoy!")
                 inter += 1
                 music.play('play')
     if eazy2 != 1 and  medium2 != 1 and hard2 != 1:
