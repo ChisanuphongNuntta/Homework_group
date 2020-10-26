@@ -79,7 +79,7 @@ def draw():
         playagain.draw()
         screen.draw.text("CORRECT: " + str(SCORE["CORRECT"]), (WIDTH - 570, 200), fontsize=50, color=WHITE)
         screen.draw.text("WRONG: " + str(SCORE["WRONG"]), (WIDTH - 550, 300), fontsize=50, color=WHITE)
-    if SCORE["WRONG"] == 3:
+    if SCORE["WRONG"] == 10:
         pu2 = 1
         end = 1
 
@@ -129,7 +129,7 @@ def on_mouse_down(pos):
             if end >= 0 and end < 1:
                 end += 1
                 music.play('end')
-    if SCORE["WRONG"] == 3 or end == 1:
+    if SCORE["WRONG"] == 10 or end == 1:
         if playagain.collidepoint(pos):
             if playagain2 >= 0 and playagain2 < 1:
                 if inter == 1:
@@ -149,7 +149,7 @@ def on_mouse_down(pos):
                 SCORE["WRONG"] = 0
                 ON_SCREEN_LETTERS = []
                 music.play('manu')
-"""    
+    
 def overtime():
     global pu2,end
     end = 1
@@ -157,8 +157,8 @@ def overtime():
     music.play('end')
     screen.draw.text("time: " + x, (WIDTH - 130, 40), fontsize=30, color=WHITE)
 
-x = clock.schedule(overtime, 10.0)
-"""
+x = clock.schedule(overtime, 60.0)
+
             
         
             
