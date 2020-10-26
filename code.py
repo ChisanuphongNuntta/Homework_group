@@ -47,6 +47,7 @@ if inter <= 0:
 
 def draw():
     global pu2,end
+    screen.draw.text("time: " + str(x), (WIDTH - 130, 40), fontsize=30, color=WHITE)
     screen.blit('start2',(0,0))
     play.draw()
     if inter == 1:
@@ -150,6 +151,14 @@ def on_mouse_down(pos):
                 ON_SCREEN_LETTERS = []
                 music.play('manu')
     
+def overtime():
+    global pu2,end
+    end = 1
+    pu2 = 1
+    music.play('end')
+    screen.draw.text("time: " + x, (WIDTH - 130, 40), fontsize=30, color=WHITE)
+
+x = clock.schedule(overtime, 10.0)
 
             
         
