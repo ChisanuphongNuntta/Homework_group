@@ -9,7 +9,7 @@ WHITE = (255, 255, 255)
 # LETTER = {"letter": "", "x": 0, "y": 0}
 ON_SCREEN_LETTERS = []
 
-VELOCITY = 5
+VELOCITY = 1
 SCORE = {"CORRECT": 0, "WRONG": 0}
 inter = 0
 stop = 0
