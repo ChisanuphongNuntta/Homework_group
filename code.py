@@ -8,6 +8,12 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 # LETTER = {"letter": "", "x": 0, "y": 0}
 ON_SCREEN_LETTERS = []
+ON_SCREEN_LETTERS1 = []
+ON_SCREEN_LETTERS2 = []
+ON_SCREEN_LETTERS3 = []
+ON_SCREEN_LETTERS4 = []
+ON_SCREEN_LETTERS5 = []
+
 VELOCITY = 1
 SCORE = {"CORRECT": 0, "WRONG": 0}
 inter = 0
@@ -28,9 +34,9 @@ replaygame = Actor('replay')
 resumegame = Actor('resume')
 backpu = Actor('backpu')
 eazy = Actor('eazy')
-eazy.pos = (540,100)
+eazy.pos = (250,100)
 medium = Actor('medium')
-medium.pos = (540,300)
+medium.pos = (770,100)
 hard = Actor('hard')
 hard.pos = (540,500)
 playagain = Actor('playagain')
@@ -165,7 +171,6 @@ def update():
                     music.play('end')
         while len(ON_SCREEN_LETTERS) < 1:
             add_letter()
-        
     if inter == 1 and pu2 != 1 and medium2 == 1:
         for i, LETTER in enumerate(ON_SCREEN_LETTERS):
             LETTER["y"] += VELOCITY
@@ -195,16 +200,12 @@ def on_key_down(key, mod, unicode):
         keyin = keyin[:-1]
     else:
         keyin += unicode
-
-    
     for i,LETTER in enumerate(ON_SCREEN_LETTERS):
         if LETTER["letter"] == keyin:
             SCORE["CORRECT"] += 1
             delete_letter(i)
             keyin = ''
             return
-
-        
 
 def add_letter():
     if inter == 1 and eazy2 == 1:
